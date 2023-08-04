@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background"
+        tools:context=".views.MovieDetailsActivity">
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/white"
+            android:visibility="gone" />
+        <!--        message -->
+        <TextView
+            android:id="@+id/tv_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:padding="10dp"
+            android:text="Some message"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:id="@+id/display_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/iv_poster"
+                        android:layout_width="match_parent"
+                        android:layout_height="450dp"
+                        android:scaleType="center"
+                        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+                    <TextView
+                        android:id="@+id/tv_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/iv_poster"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="2dp"
+                        android:fontFamily="@font/roboto"
+                        android:maxLines="2"
+                        android:padding="5dp"
+                        android:text="My Funny Booster"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/white"
+                        android:textIsSelectable="true"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <ScrollView
+                        android:id="@+id/scroll_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_title">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/tv_country"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="20dp"
+                                android:fontFamily="@font/roboto"
+                                android:maxLines="1"
+                                android:padding="5dp"
+                                android:text="@string/country"
+                                android:textColor="@color/white"
+                                android:textIsSelectable="true"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:id="@+id/tv_director"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/tv_country"
+                                android:layout_marginStart="20dp"
+                                android:fontFamily="@font/roboto"
+                                android:maxLines="1"
+                                android:padding="5dp"
+                                android:text="@string/director"
+                                android:textColor="@color/white"
+                                android:textIsSelectable="true"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:id="@+id/tv_actors"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/tv_director"
+                                android:layout_marginStart="20dp"
+                                android:fontFamily="@font/roboto"
+                                android:padding="5dp"
+                                android:text="@string/actors"
+                                android:textColor="@color/white"
+                                android:textIsSelectable="true"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:id="@+id/tv_release"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/tv_actors"
+                                android:layout_marginStart="20dp"
+                                android:fontFamily="@font/roboto"
+                                android:maxLines="1"
+                                android:padding="5dp"
+                                android:text="@string/released"
+                                android:textColor="@color/white"
+                                android:textIsSelectable="true"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:id="@+id/tv_dvd"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/tv_release"
+                                android:layout_marginStart="20dp"
+                                android:fontFamily="@font/roboto"
+                                android:maxLines="1"
+                                android:padding="5dp"
+                                android:text="@string/dvd"
+                                android:textColor="@color/white"
+                                android:textIsSelectable="true"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:id="@+id/tv_duration"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/tv_dvd"
+                                android:layout_marginStart="20dp"
+                                android:fontFamily="@font/roboto"
+                                android:maxLines="1"
+                                android:padding="5dp"
+                                android:text="@string/duration"
+                                android:textColor="@color/white"
+                                android:textIsSelectable="true"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:id="@+id/tv_writer"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/tv_duration"
+                                android:layout_marginStart="20dp"
+                                android:fontFamily="@font/roboto"
+                                android:padding="5dp"
+                                android:text="@string/writer"
+                                android:textColor="@color/white"
+                                android:textIsSelectable="true"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:id="@+id/tv_language"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/tv_writer"
+                                android:layout_marginStart="20dp"
+                                android:fontFamily="@font/roboto"
+                                android:maxLines="1"
+                                android:padding="5dp"
+                                android:text="@string/language"
+                                android:textColor="@color/white"
+                                android:textIsSelectable="true"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:id="@+id/tv_plot"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/tv_language"
+                                android:layout_marginStart="20dp"
+                                android:fontFamily="@font/roboto"
+                                android:padding="5dp"
+                                android:text="@string/plot"
+                                android:textColor="@color/white"
+                                android:textIsSelectable="true"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:id="@+id/tv_ratings"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/tv_plot"
+                                android:layout_marginStart="20dp"
+                                android:fontFamily="@font/roboto"
+                                android:maxLines="1"
+                                android:padding="5dp"
+                                android:text="@string/ratings"
+                                android:textColor="@color/white"
+                                android:textIsSelectable="true"
+                                android:textSize="16sp" />
+
+                        </RelativeLayout>
+                    </ScrollView>
+                </RelativeLayout>
+            </ScrollView>
+        </RelativeLayout>
+    </RelativeLayout>
+
+</layout>

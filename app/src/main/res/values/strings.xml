@@ -1,0 +1,26 @@
+<resources>
+    <!--    MO -> MOVIES AND PI -> API = MOPI -->
+    <string name="app_name">MOPI</string>
+    <string name="movie_type">Type: %1$s</string>
+    <string name="release_year">Year: %1$s</string>
+    <string name="total_result">Total Result: %1$s</string>
+    <string name="title_activity_movie_details">MovieDetailsActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+
+    <string name="country">Country: %1$s</string>
+    <string name="director">Director: %1$s</string>
+    <string name="actors">Actors: %1$s</string>
+    <string name="released">Released: %1$s</string>
+    <string name="dvd">DVD: %1$s</string>
+    <string name="duration">Duration: %1$s</string>
+    <string name="writer">Writer: %1$s</string>
+    <string name="language">Language: %1$s</string>
+    <string name="ratings">Ratings: %1$s</string>
+    <string name="plot">Plot: %1$s</string>
+
+</resources>
