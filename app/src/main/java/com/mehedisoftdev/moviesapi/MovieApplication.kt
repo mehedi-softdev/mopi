@@ -1,18 +1,15 @@
 package com.mehedisoftdev.moviesapi
 
 import android.app.Application
-import com.mehedisoftdev.moviesapi.api.MovieService
-import com.mehedisoftdev.moviesapi.api.RetrofitHelper
-import com.mehedisoftdev.moviesapi.repository.MovieRepository
+import com.mehedisoftdev.moviesapi.di.DaggerMoviesApplicationComponent
+import com.mehedisoftdev.moviesapi.di.MoviesApplicationComponent
 
 class MovieApplication : Application() {
-    private lateinit var movieService: MovieService
-    lateinit var movieRepository: MovieRepository
+    lateinit var applicationComponent: MoviesApplicationComponent
 
     override fun onCreate() {
         super.onCreate()
-        movieService = RetrofitHelper.getInstance().create(MovieService::class.java)
-        movieRepository = MovieRepository(applicationContext, movieService)
+        applicationComponent = DaggerMoviesApplicationComponent.builder().build()
     }
 
 }

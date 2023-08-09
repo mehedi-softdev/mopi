@@ -12,7 +12,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MainViewModel(
-    private val context: Context,
     private val movieRepository: MovieRepository
 ) : ViewModel() {
     // other variables

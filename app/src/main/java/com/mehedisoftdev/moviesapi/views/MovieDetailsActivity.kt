@@ -14,12 +14,15 @@ import com.mehedisoftdev.moviesapi.models.MovieInfo
 import com.mehedisoftdev.moviesapi.repository.Resource
 import com.mehedisoftdev.moviesapi.viewmodels.MovieDetailsViewModel
 import com.mehedisoftdev.moviesapi.viewmodels.MovieDetailsViewModelFactory
+import javax.inject.Inject
 import kotlin.system.exitProcess
 
 class MovieDetailsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMovieDetailsBinding
     private lateinit var movieId: String
     private lateinit var movieDetailsViewModel: MovieDetailsViewModel
+    @Inject
+    lateinit var movieDetailsViewModelFactory: MovieDetailsViewModelFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,9 +34,10 @@ class MovieDetailsActivity : AppCompatActivity() {
             finishAffinity()
             exitProcess(-1)
         }
-        val movieRepo = (application as MovieApplication).movieRepository
 
-        movieDetailsViewModel = ViewModelProvider(this, MovieDetailsViewModelFactory(movieRepo))[MovieDetailsViewModel::class.java]
+        (application as MovieApplication).applicationComponent.injectMovieDetailsActivity(this)
+
+        movieDetailsViewModel = ViewModelProvider(this, movieDetailsViewModelFactory)[MovieDetailsViewModel::class.java]
         // observe movie data
         movieDetailsViewModel.moviesLiveData.observe(this, Observer { it ->
             when(it) {

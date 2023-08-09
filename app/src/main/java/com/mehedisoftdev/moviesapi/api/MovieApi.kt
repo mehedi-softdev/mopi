@@ -8,7 +8,7 @@ import retrofit2.http.Query
 
 private const val apiKey: String = "c069f0ae"
 
-interface MovieService {
+interface MovieApi {
     // search movies
     @GET("/?apikey=$apiKey")
     suspend fun searchMovies(

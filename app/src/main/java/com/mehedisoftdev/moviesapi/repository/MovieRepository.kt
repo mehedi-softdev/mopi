@@ -1,14 +1,14 @@
 package com.mehedisoftdev.moviesapi.repository
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.mehedisoftdev.moviesapi.MovieApplication
-import com.mehedisoftdev.moviesapi.api.MovieService
+import com.mehedisoftdev.moviesapi.api.MovieApi
 import com.mehedisoftdev.moviesapi.models.MovieInfo
 import com.mehedisoftdev.moviesapi.models.SearchMovies
+import javax.inject.Inject
 
-class MovieRepository(private val context: Context, private val movieService: MovieService) {
+class MovieRepository @Inject constructor(private val movieService: MovieApi)
+{
 
     //   variable for search result live data
     private var mutableMoviesSearchData = MutableLiveData<Resource<SearchMovies>>()
