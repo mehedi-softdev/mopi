@@ -8,8 +8,11 @@ import com.mehedisoftdev.moviesapi.repository.MovieRepository
 import com.mehedisoftdev.moviesapi.repository.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MovieDetailsViewModel(private val movieRepository: MovieRepository): ViewModel() {
+class MovieDetailsViewModel
+@Inject constructor(private val movieRepository: MovieRepository)
+    : ViewModel() {
     val moviesLiveData: LiveData<Resource<MovieInfo>>
         get() = movieRepository.movieDetailsLiveData
 

@@ -10,7 +10,7 @@ import javax.inject.Singleton
 
 
 @Module
-class MoviesModule {
+class NetworkModule {
     @Singleton
     @Provides
     fun providesRetrofit(): Retrofit {

@@ -10,8 +10,9 @@ import com.mehedisoftdev.moviesapi.repository.MovieRepository
 import com.mehedisoftdev.moviesapi.repository.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MainViewModel(
+class MainViewModel @Inject constructor(
     private val movieRepository: MovieRepository
 ) : ViewModel() {
     // other variables

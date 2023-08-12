@@ -1,17 +1,13 @@
 package com.mehedisoftdev.moviesapi.viewmodels
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.mehedisoftdev.moviesapi.repository.MovieRepository
 import javax.inject.Inject
 
-class MainViewModelFactory @Inject constructor(
-    private val movieRepository: MovieRepository
+class ViewModelFactory @Inject constructor(
+    private val map: Map<Class<*>, @JvmSuppressWildcards ViewModel>
 ) : ViewModelProvider.Factory {
-
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return MainViewModel(movieRepository) as T
+        return map[modelClass] as T
     }
-
 }

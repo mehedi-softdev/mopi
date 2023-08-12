@@ -13,7 +13,7 @@ import com.mehedisoftdev.moviesapi.databinding.ActivityMovieDetailsBinding
 import com.mehedisoftdev.moviesapi.models.MovieInfo
 import com.mehedisoftdev.moviesapi.repository.Resource
 import com.mehedisoftdev.moviesapi.viewmodels.MovieDetailsViewModel
-import com.mehedisoftdev.moviesapi.viewmodels.MovieDetailsViewModelFactory
+import com.mehedisoftdev.moviesapi.viewmodels.ViewModelFactory
 import javax.inject.Inject
 import kotlin.system.exitProcess
 
@@ -22,7 +22,7 @@ class MovieDetailsActivity : AppCompatActivity() {
     private lateinit var movieId: String
     private lateinit var movieDetailsViewModel: MovieDetailsViewModel
     @Inject
-    lateinit var movieDetailsViewModelFactory: MovieDetailsViewModelFactory
+    lateinit var viewModelFactory: ViewModelFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +37,7 @@ class MovieDetailsActivity : AppCompatActivity() {
 
         (application as MovieApplication).applicationComponent.injectMovieDetailsActivity(this)
 
-        movieDetailsViewModel = ViewModelProvider(this, movieDetailsViewModelFactory)[MovieDetailsViewModel::class.java]
+        movieDetailsViewModel = ViewModelProvider(this, viewModelFactory)[MovieDetailsViewModel::class.java]
         // observe movie data
         movieDetailsViewModel.moviesLiveData.observe(this, Observer { it ->
             when(it) {
@@ -52,7 +52,6 @@ class MovieDetailsActivity : AppCompatActivity() {
                     binding.tvMessage.visibility = View.GONE
                     it.data?.let { movieInfo ->
                         setUiWithLiveInformation(movieInfo)
-                        println(movieInfo.imdbID)
                     }
                 }
                 is Resource.Error -> {

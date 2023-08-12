@@ -18,7 +18,7 @@ import com.mehedisoftdev.moviesapi.adapters.MovieListItemAdapter
 import com.mehedisoftdev.moviesapi.databinding.ActivityMainBinding
 import com.mehedisoftdev.moviesapi.repository.Resource
 import com.mehedisoftdev.moviesapi.viewmodels.MainViewModel
-import com.mehedisoftdev.moviesapi.viewmodels.MainViewModelFactory
+import com.mehedisoftdev.moviesapi.viewmodels.ViewModelFactory
 import javax.inject.Inject
 
 
@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mainViewModel: MainViewModel
     private lateinit var movieListAdapter: MovieListItemAdapter
     @Inject
-    lateinit var mainViewModelFactory: MainViewModelFactory
+    lateinit var viewModelFactory: ViewModelFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
 
         (application as MovieApplication).applicationComponent.injectMainActivity(this)
 
-        mainViewModel = ViewModelProvider(this, mainViewModelFactory)[MainViewModel::class.java]
+        mainViewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
 
         // setup adapter
         movieListAdapter = MovieListItemAdapter(this)
