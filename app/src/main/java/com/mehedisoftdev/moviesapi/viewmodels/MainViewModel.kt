@@ -1,6 +1,5 @@
 package com.mehedisoftdev.moviesapi.viewmodels
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -24,8 +23,16 @@ class MainViewModel @Inject constructor(
 ) : ViewModel() {
 
     // to search movies by keyword
-    fun searchMovies(searchKey: String) = movieRepository
-        .getSearchedMovies(searchKey = searchKey)
-        .cachedIn(viewModelScope)
+    fun searchMovies(searchKey: String): LiveData<PagingData<Search>> {
+        var data: LiveData<PagingData<Search>> = MutableLiveData<PagingData<Search>>()
+        viewModelScope.launch {
+            data = movieRepository
+                .getSearchedMovies(searchKey = searchKey)
+                .cachedIn(viewModelScope)
+        }
+        return data
+    }
+
+
 
 }

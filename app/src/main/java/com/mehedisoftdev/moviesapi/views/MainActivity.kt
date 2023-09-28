@@ -46,42 +46,6 @@ class MainActivity : AppCompatActivity() {
             footer = LoaderAdapter()
         )
 
-//        mainViewModel.searchMovieLiveData.observe(this, Observer {
-//            when(it) {
-//                is Resource.Loading -> {
-//                    binding.progressBar.visibility = View.VISIBLE
-//                    binding.searchResultsRecyclerView.visibility = View.GONE
-//                    binding.tvMessage.visibility = View.GONE
-//                    binding.tvTotalResult.text = ""
-//                }
-//                is Resource.Success -> {
-//                    binding.progressBar.visibility = View.GONE
-//
-////                    if(it.data?.totalResults == null) {
-////                        binding.tvMessage.visibility = View.VISIBLE
-////                        binding.searchResultsRecyclerView.visibility = View.GONE
-////                        binding.tvMessage.text = "No record found for that key"
-////                        binding.tvTotalResult.text = ""
-////                    }else {
-//                        binding.tvMessage.visibility = View.GONE
-//                        binding.searchResultsRecyclerView.visibility = View.VISIBLE
-//                        // setup total results
-////                        binding.tvTotalResult.text = String.format(getString(R.string.total_result), it.data?.totalResults)
-//                        binding.tvTotalResult.text = String.format(getString(R.string.total_result), 10)
-//                        movieListAdapter.submitData(lifecycle, it.data!!)
-////                    }
-//
-//                }
-//                is Resource.Error -> {
-//                    binding.progressBar.visibility = View.GONE
-//                    binding.searchResultsRecyclerView.visibility = View.GONE
-//                    binding.tvTotalResult.text = ""
-//                    binding.tvMessage.visibility = View.VISIBLE
-//                    binding.tvMessage.text = it.message.toString()
-//                    Toast.makeText(this, "Error: ${it.message.toString()}", Toast.LENGTH_SHORT).show()
-//                }
-//            }
-//        })
         binding.searchResultsRecyclerView.visibility = View.VISIBLE
 
 
