@@ -14,7 +14,7 @@ interface MovieApi {
     suspend fun searchMovies(
         @Query("s") searchKey: String,
         @Query("page") pageNumber: Int
-    ): Response<SearchMovies>
+    ): SearchMovies
 
     // get details of movie
     @GET("/?apikey=$apiKey")

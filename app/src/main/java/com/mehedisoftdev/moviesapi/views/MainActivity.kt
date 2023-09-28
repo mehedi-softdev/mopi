@@ -8,76 +8,83 @@ import android.view.View
 import android.view.View.OnKeyListener
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mehedisoftdev.moviesapi.MovieApplication
 import com.mehedisoftdev.moviesapi.R
+import com.mehedisoftdev.moviesapi.adapters.LoaderAdapter
 import com.mehedisoftdev.moviesapi.adapters.MovieListItemAdapter
 import com.mehedisoftdev.moviesapi.databinding.ActivityMainBinding
 import com.mehedisoftdev.moviesapi.repository.Resource
 import com.mehedisoftdev.moviesapi.viewmodels.MainViewModel
-import com.mehedisoftdev.moviesapi.viewmodels.ViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var mainViewModel: MainViewModel
     private lateinit var movieListAdapter: MovieListItemAdapter
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+    private var key: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        (application as MovieApplication).applicationComponent.injectMainActivity(this)
 
-        mainViewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
+        mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
         // setup adapter
         movieListAdapter = MovieListItemAdapter(this)
         binding.searchResultsRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.searchResultsRecyclerView.setHasFixedSize(true)
-        binding.searchResultsRecyclerView.adapter = movieListAdapter
+        binding.searchResultsRecyclerView.adapter = movieListAdapter.withLoadStateHeaderAndFooter(
+            header = LoaderAdapter(),
+            footer = LoaderAdapter()
+        )
 
-        mainViewModel.searchMovieLiveData.observe(this, Observer {
-            when(it) {
-                is Resource.Loading -> {
-                    binding.progressBar.visibility = View.VISIBLE
-                    binding.searchResultsRecyclerView.visibility = View.GONE
-                    binding.tvMessage.visibility = View.GONE
-                    binding.tvTotalResult.text = ""
-                }
-                is Resource.Success -> {
-                    binding.progressBar.visibility = View.GONE
+//        mainViewModel.searchMovieLiveData.observe(this, Observer {
+//            when(it) {
+//                is Resource.Loading -> {
+//                    binding.progressBar.visibility = View.VISIBLE
+//                    binding.searchResultsRecyclerView.visibility = View.GONE
+//                    binding.tvMessage.visibility = View.GONE
+//                    binding.tvTotalResult.text = ""
+//                }
+//                is Resource.Success -> {
+//                    binding.progressBar.visibility = View.GONE
+//
+////                    if(it.data?.totalResults == null) {
+////                        binding.tvMessage.visibility = View.VISIBLE
+////                        binding.searchResultsRecyclerView.visibility = View.GONE
+////                        binding.tvMessage.text = "No record found for that key"
+////                        binding.tvTotalResult.text = ""
+////                    }else {
+//                        binding.tvMessage.visibility = View.GONE
+//                        binding.searchResultsRecyclerView.visibility = View.VISIBLE
+//                        // setup total results
+////                        binding.tvTotalResult.text = String.format(getString(R.string.total_result), it.data?.totalResults)
+//                        binding.tvTotalResult.text = String.format(getString(R.string.total_result), 10)
+//                        movieListAdapter.submitData(lifecycle, it.data!!)
+////                    }
+//
+//                }
+//                is Resource.Error -> {
+//                    binding.progressBar.visibility = View.GONE
+//                    binding.searchResultsRecyclerView.visibility = View.GONE
+//                    binding.tvTotalResult.text = ""
+//                    binding.tvMessage.visibility = View.VISIBLE
+//                    binding.tvMessage.text = it.message.toString()
+//                    Toast.makeText(this, "Error: ${it.message.toString()}", Toast.LENGTH_SHORT).show()
+//                }
+//            }
+//        })
+        binding.searchResultsRecyclerView.visibility = View.VISIBLE
 
-                    if(it.data?.totalResults == null) {
-                        binding.tvMessage.visibility = View.VISIBLE
-                        binding.searchResultsRecyclerView.visibility = View.GONE
-                        binding.tvMessage.text = "No record found for that key"
-                        binding.tvTotalResult.text = ""
-                    }else {
-                        binding.tvMessage.visibility = View.GONE
-                        binding.searchResultsRecyclerView.visibility = View.VISIBLE
-                        // setup total results
-                        binding.tvTotalResult.text = String.format(getString(R.string.total_result), it.data?.totalResults)
-                        movieListAdapter.submitList(it.data?.Search)
-                    }
 
-                }
-                is Resource.Error -> {
-                    binding.progressBar.visibility = View.GONE
-                    binding.searchResultsRecyclerView.visibility = View.GONE
-                    binding.tvTotalResult.text = ""
-                    binding.tvMessage.visibility = View.VISIBLE
-                    binding.tvMessage.text = it.message.toString()
-                    Toast.makeText(this, "Error: ${it.message.toString()}", Toast.LENGTH_SHORT).show()
-                }
-            }
-        })
         binding.btnSearch.setOnClickListener {
             btnSearchEvent()
         }
@@ -98,11 +105,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun btnSearchEvent() {
         hideKeyboard()
-        val searchKeyword: String = binding.etSearchKeyword.text.toString().trim()
-        if(searchKeyword == null) {
+        key = binding.etSearchKeyword.text.toString().trim()
+        if(key.isEmpty()) {
             Toast.makeText(this, "Enter some keyword", Toast.LENGTH_SHORT).show()
         }else {
-            mainViewModel.searchMovies(searchKeyword)
+            mainViewModel.searchMovies(key).observe(this, Observer { pagingSearch ->
+
+                movieListAdapter.submitData(lifecycle, pagingSearch)
+            })
         }
     }
 

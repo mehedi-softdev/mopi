@@ -52,8 +52,9 @@
                         android:id="@+id/iv_poster"
                         android:layout_width="match_parent"
                         android:layout_height="450dp"
-                        android:scaleType="center"
-                        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+                        android:scaleType="fitCenter"
+                        tools:srcCompat="@tools:sample/backgrounds/scenic"
+                        android:contentDescription="@string/todo" />
 
                     <TextView
                         android:id="@+id/tv_title"

@@ -22,5 +22,6 @@
     <string name="language">Language: %1$s</string>
     <string name="ratings">Ratings: %1$s</string>
     <string name="plot">Plot: %1$s</string>
+    <string name="todo">todo</string>
 
 </resources>
